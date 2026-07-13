@@ -149,7 +149,7 @@ export default function Site() {
                 <div className="photo-shade" />
                 <div className="photo-caption"><span><Icon name="map" /></span><div><small>Drop Point Tabanan</small><strong>Dauh Peken, Bali</strong></div></div>
               </div>
-              <div className="rate-card"><small>Tarif pada materi layanan</small><strong>Mulai Rp38.000<span>/kg</span></strong><p>*Tergantung tujuan, jenis, dan detail paket.</p></div>
+              <div className="rate-card"><small>Bisa kirim ke luar negeri</small><strong>Mulai 1 kg</strong><p>Biaya menyesuaikan tujuan, jenis, dan detail paket.</p></div>
               <div className="plane-chip"><Icon name="plane" /> Bali <span /> Dunia</div>
             </div>
           </div>

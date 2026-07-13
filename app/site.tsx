@@ -29,6 +29,38 @@ function WaLink({ children, className = "", message }: { children: React.ReactNo
   return <a href={href} target="_blank" rel="noreferrer" className={className}>{children}</a>;
 }
 
+function DimensionalCalculator() {
+  const [length, setLength] = useState("20");
+  const [width, setWidth] = useState("20");
+  const [height, setHeight] = useState("20");
+  const [actualWeight, setActualWeight] = useState("0.9");
+
+  const numericLength = Math.max(0, Number(length) || 0);
+  const numericWidth = Math.max(0, Number(width) || 0);
+  const numericHeight = Math.max(0, Number(height) || 0);
+  const numericActualWeight = Math.max(0, Number(actualWeight) || 0);
+  const dimensionalWeight = (numericLength * numericWidth * numericHeight) / 5000;
+  const chargeableWeight = Math.max(dimensionalWeight, numericActualWeight);
+  const roundedWeight = Math.ceil(chargeableWeight);
+  const dimensionIsHigher = dimensionalWeight >= numericActualWeight;
+
+  return (
+    <div className="dimension-calculator">
+      <div className="dimension-inputs">
+        <div className="dimension-field"><label htmlFor="package-length">Panjang <span>cm</span></label><input id="package-length" type="number" min="0" step="0.1" inputMode="decimal" value={length} onChange={(event) => setLength(event.target.value)} /></div>
+        <div className="dimension-field"><label htmlFor="package-width">Lebar <span>cm</span></label><input id="package-width" type="number" min="0" step="0.1" inputMode="decimal" value={width} onChange={(event) => setWidth(event.target.value)} /></div>
+        <div className="dimension-field"><label htmlFor="package-height">Tinggi <span>cm</span></label><input id="package-height" type="number" min="0" step="0.1" inputMode="decimal" value={height} onChange={(event) => setHeight(event.target.value)} /></div>
+        <div className="dimension-field"><label htmlFor="actual-weight">Berat timbangan <span>kg</span></label><input id="actual-weight" type="number" min="0" step="0.1" inputMode="decimal" value={actualWeight} onChange={(event) => setActualWeight(event.target.value)} /></div>
+      </div>
+      <div className="dimension-result" aria-live="polite">
+        <div className="result-formula"><small>Berat dimensi</small><strong>({numericLength || 0} × {numericWidth || 0} × {numericHeight || 0}) ÷ 5000</strong><span>= {dimensionalWeight.toFixed(2)} kg</span></div>
+        <div className="result-comparison"><div><span>Berat timbangan</span><strong>{numericActualWeight.toFixed(2)} kg</strong></div><div><span>Berat dimensi</span><strong>{dimensionalWeight.toFixed(2)} kg</strong></div></div>
+        <div className="result-final"><span><Icon name="check" /></span><div><small>Perkiraan berat yang digunakan</small><strong>{roundedWeight} kg</strong><p>{dimensionIsHigher ? "Berat dimensi lebih besar" : "Berat timbangan lebih besar"} dan dibulatkan ke atas.</p></div></div>
+      </div>
+    </div>
+  );
+}
+
 function EstimateForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
 
@@ -142,6 +174,32 @@ export default function Site() {
         <section className="section categories-section"><div className="container categories-grid"><div className="category-copy"><div className="eyebrow light">Contoh kategori barang</div><h2>Apa yang ingin Anda kirim?</h2><p>Kategori berikut tercantum pada materi layanan Maigeiwo. Penerimaan akhir tetap melalui pengecekan admin.</p><WaLink className="button button-light" message="Halo Maigeiwo Express Tabanan, saya ingin mengecek apakah barang saya dapat dikirim ke luar negeri.">Cek barang saya <Icon name="arrow" /></WaLink></div><div className="category-list">{itemCategories.map((item, index) => <div key={item}><span>{String(index + 1).padStart(2, "0")}</span><strong>{item}</strong><Icon name="check" /></div>)}</div></div></section>
 
         <section className="section process-section" id="cara-kirim"><div className="container"><div className="section-heading centered"><div className="eyebrow">Cara pengiriman</div><h2>Empat langkah, tanpa dibuat rumit.</h2><p>Mulai dengan detail sederhana. Admin akan memberi arahan sesuai kebutuhan kiriman Anda.</p></div><div className="process-grid">{steps.map(([number, title, description], index) => <article className="process-card" key={number}><div className="step-top"><span>{number}</span>{index < steps.length - 1 && <div className="step-line" />}</div><div className="process-icon"><Icon name={(["chat", "box", "document", "truck"] as IconName[])[index]} /></div><h3>{title}</h3><p>{description}</p></article>)}</div><div className="process-cta"><div><Icon name="chat" /><p><strong>Belum yakin harus mulai dari mana?</strong><span>Kirim foto barang dan negara tujuan kepada admin.</span></p></div><WaLink className="button button-primary" message="Halo Maigeiwo Express Tabanan, saya belum yakin cara memulai pengiriman. Mohon dibantu.">Mulai konsultasi <Icon name="arrow" /></WaLink></div></div></section>
+
+        <section className="section dimension-section" id="hitung-dimensi">
+          <div className="container">
+            <div className="dimension-heading">
+              <div>
+                <div className="eyebrow">Cara menghitung dimensi paket</div>
+                <h2>Ukuran paket juga menentukan berat kiriman.</h2>
+              </div>
+              <p>Kurir membandingkan berat timbangan dengan berat dimensi. Nilai yang lebih besar digunakan sebagai dasar perhitungan, kemudian dibulatkan ke atas.</p>
+            </div>
+            <div className="dimension-layout">
+              <div className="dimension-guide-card">
+                <figure className="dimension-illustration">
+                  <Image src="/images/dimensi-paket-maigeiwo.png" alt="Ilustrasi paket berukuran panjang, lebar, dan tinggi masing-masing 20 cm dengan berat 0,9 kg" fill sizes="(max-width: 900px) 100vw, 46vw" />
+                </figure>
+                <div className="dimension-formula-card">
+                  <small>Rumus berat dimensi</small>
+                  <div className="dimension-formula"><span>Panjang</span><b>×</b><span>Lebar</span><b>×</b><span>Tinggi</span><b>÷</b><strong>5000</strong></div>
+                  <p>Contoh: (20 × 20 × 20) ÷ 5000 = <strong>1,6 kg</strong></p>
+                </div>
+              </div>
+              <div className="calculator-card"><div className="calculator-head"><div><small>Kalkulator berat dimensi</small><strong>Coba ukuran paket Anda</strong></div><Icon name="box" /></div><DimensionalCalculator /></div>
+            </div>
+            <p className="dimension-disclaimer"><Icon name="shield" /> Kalkulator ini mengikuti pembagi 5000 dari materi Maigeiwo. Hasil akhir dan ketentuan pembulatan tetap dikonfirmasi oleh admin.</p>
+          </div>
+        </section>
 
         <section className="section estimate-section" id="estimasi"><div className="container estimate-grid"><div className="estimate-copy"><div className="eyebrow light">Estimasi ongkir</div><h2>Dapatkan arahan awal untuk paket Anda.</h2><p>Lengkapi data berikut. Saat dikirim, detail akan otomatis dirapikan menjadi pesan WhatsApp untuk admin Maigeiwo.</p><div className="estimate-note"><Icon name="shield" /><div><strong>Informasi yang membantu</strong><span>Negara tujuan, jenis barang, berat, dan ukuran paket.</span></div></div><div className="estimate-route" aria-hidden="true"><Icon name="map" /><span /><Icon name="plane" /><span /><Icon name="globe" /></div></div><div className="form-card"><EstimateForm /></div></div></section>
 

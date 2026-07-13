@@ -187,7 +187,10 @@ export default function Site() {
             <div className="dimension-layout">
               <div className="dimension-guide-card">
                 <figure className="dimension-illustration">
-                  <Image src="/images/dimensi-paket-maigeiwo.png" alt="Ilustrasi paket berukuran panjang, lebar, dan tinggi masing-masing 20 cm dengan berat 0,9 kg" fill sizes="(max-width: 900px) 100vw, 46vw" />
+                  <figcaption className="dimension-example-label">Contoh</figcaption>
+                  <div className="dimension-illustration-frame">
+                    <Image src="/images/dimensi-paket-maigeiwo.png" alt="Ilustrasi paket berukuran panjang, lebar, dan tinggi masing-masing 20 cm dengan berat 0,9 kg" fill sizes="(max-width: 900px) 100vw, 46vw" />
+                  </div>
                 </figure>
                 <div className="dimension-formula-card">
                   <small>Rumus berat dimensi</small>

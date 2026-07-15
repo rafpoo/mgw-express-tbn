@@ -11,7 +11,7 @@ export default function Home() {
     telephone: `+${business.phoneInternational}`,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Jl. P. Indah No.17X, Dauh Peken",
+      streetAddress: "Jl. Pondok Indah No.17X, Dauh Peken",
       addressLocality: "Tabanan",
       addressRegion: "Bali",
       postalCode: "82121",
@@ -19,17 +19,31 @@ export default function Home() {
     },
     hasMap: business.mapsUrl,
     sameAs: [business.instagramUrl],
-    openingHoursSpecification: [{
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-      opens: "08:00",
-      closes: "17:00",
-    }],
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ],
+        opens: "08:00",
+        closes: "17:00",
+      },
+    ],
   };
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema).replace(/</g, "\\u003c") }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(localBusinessSchema).replace(/</g, "\\u003c"),
+        }}
+      />
       <Site />
     </>
   );

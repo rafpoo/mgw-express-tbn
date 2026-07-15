@@ -7,7 +7,7 @@ export const business = {
   phoneInternational: "628123987234",
   whatsappUrl: "https://wa.me/628123987234",
   address:
-    "Jl. P. Indah No.17X, Dauh Peken, Kec. Tabanan, Kabupaten Tabanan, Bali 82121",
+    "Jl. Pondok Indah No.17X, Dauh Peken, Kec. Tabanan, Kabupaten Tabanan, Bali 82121",
   mapsUrl: "https://maps.app.goo.gl/cpr872gw23HBVARV6",
   instagramUrl: "https://www.instagram.com/maigeiwo.tabanan/",
   instagramHandle: "@maigeiwo.tabanan",
@@ -97,6 +97,6 @@ export const faqs = [
   {
     question: "Di mana lokasi Maigeiwo Express Tabanan?",
     answer:
-      "Drop point berada di Jl. P. Indah No.17X, Dauh Peken, Kecamatan Tabanan, Kabupaten Tabanan, Bali 82121. Gunakan tombol Google Maps di bagian Kontak untuk navigasi.",
+      "Drop point berada di Jl. Pondok Indah No.17X, Dauh Peken, Kecamatan Tabanan, Kabupaten Tabanan, Bali 82121. Gunakan tombol Google Maps di bagian Kontak untuk navigasi.",
   },
 ] as const;
